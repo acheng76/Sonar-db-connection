@@ -16,29 +16,25 @@ function readDataFromCSV(filePath) {
   });
 }
 
-function joinData(
-  dimData,
-  factData,
-  keys = ["PROD_INSTNC_KEY", "SLA_MNTH"],
-  month,
-  year
-) {
-  const joinedData = [];
-  dimData.forEach((dimRow) => {
-    if (
-      new Date(dimRow["SLA_MNTH"]).getFullYear().toString() === year &&
-      new Date(dimRow["SLA_MNTH"]).getDate().toString() === month
-    ) {
-      const factRow = factData.filter((factRow) =>
-        keys.map((key) => dimRow[key] == factRow[key]).every(Boolean)
-      );
-      if (factRow.length > 0) {
-        joinedData.push({ ...dimRow, ...factRow[0] });
-      }
-    }
-  });
-  return joinedData;
+function filterMonthYear(data, key, month, year) {
+  return data.filter(
+    (row) =>
+      row[key]?.split("/")[1] === month &&
+      row[key]?.split("/")[2].split(" ")[0] === year
+  );
 }
+
+// function joinIncidentData(data, incData, key = "PROD_INSTNC_KEY") {
+//   const joinedData = [];
+//   data.forEach((row) => {
+//     const incRows = incData.filter(
+//       (incRow) =>
+//         row[key] == incRow[key] && incRow["AVAIL_SLA_AFFCT_IND"] === "Y"
+//     );
+//     joinedData.push({ ...row, TOTAL_INCIDENTS: incRows.length + "" });
+//   });
+//   return joinedData;
+// }
 
 async function getPerfReportData(req, res) {
   try {
@@ -96,29 +92,88 @@ async function getPerfReportData(req, res) {
 
 async function getAvaiReportData(req, res) {
   try {
-    // csvFilePath = './data/test-csv-SA-2month-dim+fact.csv';
-    // const data = await readDataFromCSV(csvFilePath);
-    // res.json(data);
-
     dimPath = "./data/availability_dims.csv";
     factPath = "./data/report_sla_srvc_avail_mnthly.csv";
+    incPath = "./data/incident_close.csv";
 
     const dimData = await readDataFromCSV(dimPath);
     const factData = await readDataFromCSV(factPath);
-
-    const INNER_JOIN_KEYS = ["PROD_INSTNC_KEY", "SLA_MNTH"];
-
-    //  "http://localhost:5000/report/avaiReportData?month=10&year=2023"
+    // const incData = await readDataFromCSV(incPath);
 
     const month = req.query.month;
     const year = req.query.year;
 
-    // const month = 10;
-    // const year = 2023;
+    //  "http://localhost:5000/report/avaiReportData?month=10&year=2023"
 
-    const data = joinData(dimData, factData, INNER_JOIN_KEYS, month, year);
+    const dimDataFilter = filterMonthYear(dimData, "SLA_MNTH", month, year);
+    const factDataFilter = filterMonthYear(factData, "SLA_MNTH", month, year);
+    // const incDataFilter = filterMonthYear(
+    //   incData,
+    //   "CLOSE_CUST_TS",
+    //   month,
+    //   year
+    // );
 
+    function joinData(
+      dimData,
+      factData,
+      keys = ["PROD_INSTNC_KEY", "SLA_MNTH"]
+    ) {
+      const joinedData = [];
+      dimData.forEach((dimRow) => {
+        const factRows = factData.filter((factRow) =>
+          keys.map((key) => dimRow[key] == factRow[key]).every(Boolean)
+        );
+        if (factRows.length > 0) {
+          joinedData.push({ ...dimRow, ...factRows[0] });
+        }
+      });
+      return joinedData;
+    }
+
+    const INNER_JOIN_KEYS = ["PROD_INSTNC_KEY", "SLA_MNTH"];
+
+    let data = joinData(dimDataFilter, factDataFilter, INNER_JOIN_KEYS);
+
+    // data = joinIncidentData(data, incDataFilter, "PROD_INSTNC_KEY");
     res.json(data);
+  } catch (error) {
+    console.error("Error reading CSV file:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
+
+async function getincidentData(req, res) {
+  try {
+    incPath = "./data/incident_close.csv";
+
+    const incData = await readDataFromCSV(incPath);
+
+    const month = req.query.month;
+    const year = req.query.year;
+    const key = req.query.key;
+
+    //  "http://localhost:5000/report/incidentData?month=10&year=2023&key=1235009"
+
+    // const incDataFilter = filterMonthYear(
+    //   incData,
+    //   "CLOSE_CUST_TS",
+    //   month,
+    //   year
+    // );
+
+    function filterIncidentData(data, key) {
+      return data.filter(
+        (row) =>
+          row["PROD_INSTNC_KEY"] === key && row["AVAIL_SLA_AFFCT_IND"] === "Y"
+      );
+    }
+
+    const data = filterIncidentData(incData, key);
+
+    const filter = filterMonthYear(data, "CLOSE_CUST_TS", month, year);
+
+    res.json(filter);
   } catch (error) {
     console.error("Error reading CSV file:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -128,4 +183,5 @@ async function getAvaiReportData(req, res) {
 module.exports = {
   getPerfReportData,
   getAvaiReportData,
+  getincidentData,
 };

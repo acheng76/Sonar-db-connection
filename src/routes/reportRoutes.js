@@ -1,9 +1,9 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const reportController = require('../controllers/reportController');
-const avaiReportData = require('../controllers/reportController');
+const reportController = require("../controllers/reportController");
 
-router.get('/perfReportData', reportController.getPerfReportData);
-router.get('/avaiReportData', reportController.getAvaiReportData);
+router.get("/perfReportData", reportController.getPerfReportData);
+router.get("/avaiReportData", reportController.getAvaiReportData);
+router.get("/incidentData", reportController.getincidentData);
 
 module.exports = router;
