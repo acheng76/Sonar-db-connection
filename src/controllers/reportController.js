@@ -4,6 +4,7 @@ const gonetDBConfig = require("../config/gonetDBConfig");
 const fs = require("fs");
 
 const csv = require("csv-parser");
+const { join } = require("path");
 
 function readDataFromCSV(filePath) {
   return new Promise((resolve, reject) => {
@@ -122,7 +123,7 @@ async function getAvaiReportData(req, res) {
       const joinedData = [];
       dimData.forEach((dimRow) => {
         const factRows = factData.filter((factRow) =>
-          keys.map((key) => dimRow[key] == factRow[key]).every(Boolean)
+          keys.map((key) => dimRow[key] === factRow[key]).every(Boolean)
         );
         if (factRows.length > 0) {
           joinedData.push({ ...dimRow, ...factRows[0] });
@@ -180,8 +181,88 @@ async function getincidentData(req, res) {
   }
 }
 
+async function getPerfCoreMMPReportData(req, res) {
+  try {
+    const connection = await oracledb.getConnection(gonetDBConfig);
+    console.log("Gonet database connected");
+    const slaType = req.query.slaType;
+    const month = req.query.month;
+    const year = req.query.year;
+    // "http://localhost:5000/report/perfCoreMMPReportData?slaType=SLT-PDV&month=3&year=2024"
+
+    const startOfMonth = new Date(year, month - 1, 1, 0, 0, 0);
+    const endOfMonth = new Date(year, month, 0, 23, 59, 59);
+    const formatDate = (date) => {
+      const pad = (num) => (num < 10 ? "0" : "") + num;
+      return `${pad(date.getMonth() + 1)}/${pad(
+        date.getDate()
+      )}/${date.getFullYear()} ${pad(date.getHours())}:${pad(
+        date.getMinutes()
+      )}:${pad(date.getSeconds())}`;
+    };
+    const startTs = formatDate(startOfMonth);
+    const endTs = formatDate(endOfMonth);
+
+    const sqlFact = fs
+      .readFileSync("./src/query/perfFactMMPData.sql", "UTF-8")
+      .toString();
+    const sqlDim = fs
+      .readFileSync("./src/query/perfDimMMPData.sql", "UTF-8")
+      .toString();
+
+    const factData = await connection.execute(sqlFact, {
+      startTs: startTs,
+      endTs: endTs,
+    });
+    const dimData = await connection.execute(sqlDim, {
+      startTs: startTs,
+      endTs: endTs,
+      slaType: slaType,
+    });
+
+    const transformeData = (res) =>
+      res.rows.map((row) => {
+        const rowObject = {};
+        res.metaData.forEach((column, index) => {
+          rowObject[column.name] = row[index];
+        });
+        return rowObject;
+      });
+
+    const factDataTransform = transformeData(factData);
+    const dimDataTransform = transformeData(dimData);
+
+    function joinData(
+      dimData,
+      factData,
+      keys = ["PROD_INSTNC_KEY", "SLA_MNTH"]
+    ) {
+      const joinedData = [];
+      dimData.forEach((dimRow) => {
+        const factRows = factData.filter((factRow) =>
+          keys
+            .map((key) => dimRow[key].toString() === factRow[key].toString())
+            .every(Boolean)
+        );
+        if (factRows.length > 0) {
+          joinedData.push({ ...dimRow, ...factRows[0] });
+        }
+      });
+      return joinedData;
+    }
+
+    const result = joinData(dimDataTransform, factDataTransform);
+
+    res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+}
+
 module.exports = {
   getPerfReportData,
   getAvaiReportData,
   getincidentData,
+  getPerfCoreMMPReportData,
 };
