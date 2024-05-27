@@ -13,7 +13,8 @@ WITH SLA AS (
     WHERE
         perf_fact.SAMP_CUST_RQST_TS BETWEEN TO_DATE (:startTs, 'MM/DD/YYYY HH24:MI:SS') -- Reporting start date - parameter
         AND TO_DATE (:endTs, 'MM/DD/YYYY HH24:MI:SS') -- Reporting end date - parameter
-        and SLA_PERF_TEST_PATH_CNTRL_KEY is not null --AND PERF_FACT.SLA_TYP = 'SLT-PTD'  -- Parameter -  KPI : SLT-PTD, SLT-DDR or SLT-JITTER(?)
+        and SLA_PERF_TEST_PATH_CNTRL_KEY is not null
+        AND PERF_FACT.SLA_TYP = :slaType -- Parameter -  KPI : SLT-PTD, SLT-DDR or SLT-JITTER(?)
 ),
 perf_sla_hist AS (
     SELECT

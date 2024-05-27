@@ -213,6 +213,7 @@ async function getPerfCoreMMPReportData(req, res) {
     const factData = await connection.execute(sqlFact, {
       startTs: startTs,
       endTs: endTs,
+      slaType: slaType,
     });
     const dimData = await connection.execute(sqlDim, {
       startTs: startTs,
