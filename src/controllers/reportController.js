@@ -261,9 +261,23 @@ async function getPerfCoreMMPReportData(req, res) {
   }
 }
 
+async function getPerfCoreMMPReportDataTest(req, res) {
+  try {
+    const coreMMPPath = "./data/coreMMPTestData.csv";
+    const mmpData = await readDataFromCSV(coreMMPPath);
+
+
+    res.json(mmpData);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+}
+
 module.exports = {
   getPerfReportData,
   getAvaiReportData,
   getincidentData,
   getPerfCoreMMPReportData,
+  getPerfCoreMMPReportDataTest,
 };
