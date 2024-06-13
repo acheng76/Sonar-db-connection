@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is Oracle JAX-WS 2.1.3-07/10/2008 08:41 PM(bt). -->
+<s0:definitions xmlns="" xmlns:s0="http://schemas.xmlsoap.org/wsdl/" xmlns:s1="http://xmlschema.tmi.telus.com/srv/EO/SecurityMgmt/IdentityMgmt/ClientIdentityProfileRequestResponse_v2" xmlns:s2="http://xmlschema.tmi.telus.com/xsd/Enterprise/BaseTypes/types/ping_v1" xmlns:s3="http://xmlschema.tmi.telus.com/xsd/common/exceptions/Exceptions_v1_0" xmlns:s4="http://telus.com/wsdl/EO/SecurityMgmt/ClientIdentityProfileService_2_0" xmlns:s5="http://schemas.xmlsoap.org/wsdl/soap/" name="ClientIdentityProfileService_v2_0.wsdl" targetNamespace="http://telus.com/wsdl/EO/SecurityMgmt/ClientIdentityProfileService_2_0">
+  <s0:documentation>Provides methods to access available services to create and update Identity Profiles in the External Client Identity system</s0:documentation>
+  <s0:types>
+    <xs:schema xmlns:ci="http://xmlschema.tmi.telus.com/srv/EO/SecurityMgmt/IdentityMgmt/ClientIdentityProfileRequestResponse_v2" xmlns:ex="http://xmlschema.tmi.telus.com/xsd/common/exceptions/Exceptions_v1_0" xmlns:iface="http://telus.com/wsdl/EO/SecurityMgmt/ClientIdentityProfileService_2_0" xmlns:ping="http://xmlschema.tmi.telus.com/xsd/Enterprise/BaseTypes/types/ping_v1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wss="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://telus.com/wsdl/EO/SecurityMgmt/ClientIdentityProfileService_2_0">
+      <xs:import namespace="http://xmlschema.tmi.telus.com/srv/EO/SecurityMgmt/IdentityMgmt/ClientIdentityProfileRequestResponse_v2" schemaLocation="http://em-securitymgmt-west-pr.tsl.telus.com:80/ClientIdentityProfileService_ws/ClientIdentityProfileService_v2_0/ClientIdentityProfileService_v2_0?xsd=1"/>
+      <xs:import namespace="http://xmlschema.tmi.telus.com/xsd/common/exceptions/Exceptions_v1_0" schemaLocation="http://em-securitymgmt-west-pr.tsl.telus.com:80/ClientIdentityProfileService_ws/ClientIdentityProfileService_v2_0/ClientIdentityProfileService_v2_0?xsd=3"/>
+      <xs:import namespace="http://xmlschema.tmi.telus.com/xsd/Enterprise/BaseTypes/types/ping_v1" schemaLocation="http://em-securitymgmt-west-pr.tsl.telus.com:80/ClientIdentityProfileService_ws/ClientIdentityProfileService_v2_0/ClientIdentityProfileService_v2_0?xsd=4"/>
+    </xs:schema>
+  </s0:types>
+  <s0:message name="initializeProfiles">
+    <s0:part element="s1:initializeProfilesRqstType" name="parameters"/>
+  </s0:message>
+  <s0:message name="initializeProfilesResponse">
+    <s0:part element="s1:initializeProfilesRespType" name="result"/>
+  </s0:message>
+  <s0:message name="updateAttributes">
+    <s0:part element="s1:updateAttributesRqstType" name="parameters"/>
+  </s0:message>
+  <s0:message name="updateAttributesResponse">
+    <s0:part element="s1:updateAttributesRespType" name="result"/>
+  </s0:message>
+  <s0:message name="updateCredentials">
+    <s0:part element="s1:updateCredentialsRqstType" name="parameters"/>
+  </s0:message>
+  <s0:message name="updateCredentialsResponse">
+    <s0:part element="s1:updateCredentialsRespType" name="result"/>
+  </s0:message>
+  <s0:message name="updateStatus">
+    <s0:part element="s1:updateStatusRqstType" name="parameters"/>
+  </s0:message>
+  <s0:message name="updateStatusResponse">
+    <s0:part element="s1:updateStatusRespType" name="result"/>
+  </s0:message>
+  <s0:message name="updateAuthorization">
+    <s0:part element="s1:updateAuthorizationRqstType" name="parameters"/>
+  </s0:message>
+  <s0:message name="updateAuthorizationResponse">
+    <s0:part element="s1:updateAuthorizationRespType" name="result"/>
+  </s0:message>
+  <s0:message name="sendNotification">
+    <s0:part element="s1:sendNotificationRqstType" name="parameters"/>
+  </s0:message>
+  <s0:message name="sendNotificationResponse">
+    <s0:part element="s1:sendNotificationRespType" name="result"/>
+  </s0:message>
+  <s0:message name="getProfiles">
+    <s0:part element="s1:getProfilesRqstType" name="parameters"/>
+  </s0:message>
+  <s0:message name="getProfilesResponse">
+    <s0:part element="s1:getProfilesRespType" name="result"/>
+  </s0:message>
+  <s0:message name="searchProfile">
+    <s0:part element="s1:searchProfileRqstType" name="parameters"/>
+  </s0:message>
+  <s0:message name="searchProfileResponse">
+    <s0:part element="s1:searchProfileRespType" name="result"/>
+  </s0:message>
+  <s0:message name="getTransactionHistory">
+    <s0:part element="s1:getTransactionHistoryRqstType" name="parameters"/>
+  </s0:message>
+  <s0:message name="getTransactionHistoryResponse">
+    <s0:part element="s1:getTransactionHistoryRespType" name="result"/>
+  </s0:message>
+  <s0:message name="getIdentityToken">
+    <s0:part element="s1:getIdentityTokenRqstType" name="parameters"/>
+  </s0:message>
+  <s0:message name="getIdentityTokenResponse">
+    <s0:part element="s1:getIdentityTokenRespType" name="result"/>
+  </s0:message>
+  <s0:message name="ping">
+    <s0:part element="s2:ping" name="parameters"/>
+  </s0:message>
+  <s0:message name="pingResponse">
+    <s0:part element="s2:pingResponse" name="result"/>
+  </s0:message>
+  <s0:message name="ServiceException">
+    <s0:part element="s3:ServiceException" name="fault"/>
+  </s0:message>
+  <s0:message name="PolicyException">
+    <s0:part element="s3:PolicyException" name="fault"/>
+  </s0:message>
+  <s0:portType name="ClientIdentityProfileServicePortType">
+    <s0:operation name="initializeProfiles">
+      <s0:input message="s4:initializeProfiles"/>
+      <s0:output message="s4:initializeProfilesResponse"/>
+      <s0:fault message="s4:ServiceException" name="ServiceException"/>
+      <s0:fault message="s4:PolicyException" name="PolicyException"/>
+    </s0:operation>
+    <s0:operation name="updateAttributes">
+      <s0:input message="s4:updateAttributes"/>
+      <s0:output message="s4:updateAttributesResponse"/>
+      <s0:fault message="s4:ServiceException" name="ServiceException"/>
+      <s0:fault message="s4:PolicyException" name="PolicyException"/>
+    </s0:operation>
+    <s0:operation name="updateCredentials">
+      <s0:input message="s4:updateCredentials"/>
+      <s0:output message="s4:updateCredentialsResponse"/>
+      <s0:fault message="s4:ServiceException" name="ServiceException"/>
+      <s0:fault message="s4:PolicyException" name="PolicyException"/>
+    </s0:operation>
+    <s0:operation name="updateStatus">
+      <s0:input message="s4:updateStatus"/>
+      <s0:output message="s4:updateStatusResponse"/>
+      <s0:fault message="s4:ServiceException" name="ServiceException"/>
+      <s0:fault message="s4:PolicyException" name="PolicyException"/>
+    </s0:operation>
+    <s0:operation name="updateAuthorization">
+      <s0:input message="s4:updateAuthorization"/>
+      <s0:output message="s4:updateAuthorizationResponse"/>
+      <s0:fault message="s4:ServiceException" name="ServiceException"/>
+      <s0:fault message="s4:PolicyException" name="PolicyException"/>
+    </s0:operation>
+    <s0:operation name="sendNotification">
+      <s0:input message="s4:sendNotification"/>
+      <s0:output message="s4:sendNotificationResponse"/>
+      <s0:fault message="s4:ServiceException" name="ServiceException"/>
+      <s0:fault message="s4:PolicyException" name="PolicyException"/>
+    </s0:operation>
+    <s0:operation name="getProfiles">
+      <s0:input message="s4:getProfiles"/>
+      <s0:output message="s4:getProfilesResponse"/>
+      <s0:fault message="s4:ServiceException" name="ServiceException"/>
+      <s0:fault message="s4:PolicyException" name="PolicyException"/>
+    </s0:operation>
+    <s0:operation name="searchProfile">
+      <s0:input message="s4:searchProfile"/>
+      <s0:output message="s4:searchProfileResponse"/>
+      <s0:fault message="s4:ServiceException" name="ServiceException"/>
+      <s0:fault message="s4:PolicyException" name="PolicyException"/>
+    </s0:operation>
+    <s0:operation name="getTransactionHistory">
+      <s0:input message="s4:getTransactionHistory"/>
+      <s0:output message="s4:getTransactionHistoryResponse"/>
+      <s0:fault message="s4:ServiceException" name="ServiceException"/>
+      <s0:fault message="s4:PolicyException" name="PolicyException"/>
+    </s0:operation>
+    <s0:operation name="getIdentityToken">
+      <s0:input message="s4:getIdentityToken"/>
+      <s0:output message="s4:getIdentityTokenResponse"/>
+      <s0:fault message="s4:ServiceException" name="ServiceException"/>
+      <s0:fault message="s4:PolicyException" name="PolicyException"/>
+    </s0:operation>
+    <s0:operation name="ping">
+      <s0:input message="s4:ping"/>
+      <s0:output message="s4:pingResponse"/>
+      <s0:fault message="s4:ServiceException" name="ServiceException"/>
+      <s0:fault message="s4:PolicyException" name="PolicyException"/>
+    </s0:operation>
+  </s0:portType>
+  <s0:binding name="ClientIdentityProfileServiceSOAP" type="s4:ClientIdentityProfileServicePortType">
+    <s5:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <s0:operation name="initializeProfiles">
+      <s0:documentation>Creates one or more profiles in Client Identity that is pending completion of credentials being entered by the user.
+An application must call this after deciding the user needs a new Identity.  There are two options, which are controlled by the notificationMethod parameter:
+•	none - calling application must redirect user to Client Identity’s self-registration page with the registration token to complete profile 
+•	email - Client Identity will send an email, based on the portal parameter, that will include a link to Client Identity’s registration page
+
+The application is responsible to store the uuid returned and ensure it is mapped to the application’s internal data.
+</s0:documentation>
+      <s5:operation soapAction="initializeProfiles"/>
+      <s0:input>
+        <s5:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s5:body parts="result" use="literal"/>
+      </s0:output>
+      <s0:fault name="ServiceException">
+        <s5:fault name="ServiceException" use="literal"/>
+      </s0:fault>
+      <s0:fault name="PolicyException">
+        <s5:fault name="PolicyException" use="literal"/>
+      </s0:fault>
+    </s0:operation>
+    <s0:operation name="updateAttributes">
+      <s0:documentation>Updates the following non-sensitive attributes of an Identity in Client Identity:
+			•	First name
+			•	Last name
+			•	Language Preference</s0:documentation>
+      <s5:operation soapAction="updateAttributes"/>
+      <s0:input>
+        <s5:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s5:body parts="result" use="literal"/>
+      </s0:output>
+      <s0:fault name="ServiceException">
+        <s5:fault name="ServiceException" use="literal"/>
+      </s0:fault>
+      <s0:fault name="PolicyException">
+        <s5:fault name="PolicyException" use="literal"/>
+      </s0:fault>
+    </s0:operation>
+    <s0:operation name="updateCredentials">
+      <s0:documentation>Updates the following attributes that are used as credentials in Client Identity:
+			•	Email
+			•	Password – flag to request a temporary password
+		For the password flag, a message will be sent to the profile’s notification address with the temporary password.
+		For a change in email, messages to both old and new email addresses will be sent.
+</s0:documentation>
+      <s5:operation soapAction="updateCredentials"/>
+      <s0:input>
+        <s5:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s5:body parts="result" use="literal"/>
+      </s0:output>
+      <s0:fault name="ServiceException">
+        <s5:fault name="ServiceException" use="literal"/>
+      </s0:fault>
+      <s0:fault name="PolicyException">
+        <s5:fault name="PolicyException" use="literal"/>
+      </s0:fault>
+    </s0:operation>
+    <s0:operation name="updateStatus">
+      <s0:documentation>Updates the status of a profile in Client Identity.  The new status can be:
+			•	Active
+			•	Locked
+			•	Deleted
+		If the current status is Pending, the new status can only be set to Deleted.
+		If the new status is set to Deleted, the username and email address of the profile will become available for re-use by other Identities.
+</s0:documentation>
+      <s5:operation soapAction="updateStatus"/>
+      <s0:input>
+        <s5:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s5:body parts="result" use="literal"/>
+      </s0:output>
+      <s0:fault name="ServiceException">
+        <s5:fault name="ServiceException" use="literal"/>
+      </s0:fault>
+      <s0:fault name="PolicyException">
+        <s5:fault name="PolicyException" use="literal"/>
+      </s0:fault>
+    </s0:operation>
+    <s0:operation name="updateAuthorization">
+      <s0:documentation>Updates the coarse grain authorization of a profile in Client Identity.  This is done by adding or removing coarse grain roles in Client Identity.  These roles should be high-level, and will be used by Sun Access Manager to restrict access to an application.  For e.g., there may be one high level role each for consumer telus.com, telusmobility, cdss, etc.  Roles must exist in the authentication domain of user</s0:documentation>
+      <s5:operation soapAction="updateAuthorization"/>
+      <s0:input>
+        <s5:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s5:body parts="result" use="literal"/>
+      </s0:output>
+      <s0:fault name="ServiceException">
+        <s5:fault name="ServiceException" use="literal"/>
+      </s0:fault>
+      <s0:fault name="PolicyException">
+        <s5:fault name="PolicyException" use="literal"/>
+      </s0:fault>
+    </s0:operation>
+    <s0:operation name="sendNotification">
+      <s0:documentation>Resends messages to the user’s notification address.
+			Messages that can be resent are:
+				•	registration
+				•	email validation
+				•	user name (with aliases – aka email – tbd)
+			Resending the registration message will also reset the registration expiry period.
+</s0:documentation>
+      <s5:operation soapAction="sendNotification"/>
+      <s0:input>
+        <s5:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s5:body parts="result" use="literal"/>
+      </s0:output>
+      <s0:fault name="ServiceException">
+        <s5:fault name="ServiceException" use="literal"/>
+      </s0:fault>
+      <s0:fault name="PolicyException">
+        <s5:fault name="PolicyException" use="literal"/>
+      </s0:fault>
+    </s0:operation>
+    <s0:operation name="getProfiles">
+      <s0:documentation>Find all the profiles in Client Identity that matches the list of given uuids.</s0:documentation>
+      <s5:operation soapAction="getProfiles"/>
+      <s0:input>
+        <s5:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s5:body parts="result" use="literal"/>
+      </s0:output>
+      <s0:fault name="ServiceException">
+        <s5:fault name="ServiceException" use="literal"/>
+      </s0:fault>
+      <s0:fault name="PolicyException">
+        <s5:fault name="PolicyException" use="literal"/>
+      </s0:fault>
+    </s0:operation>
+    <s0:operation name="searchProfile">
+      <s0:documentation>Finds all profiles in Client Identity that match all of the search criteria given.</s0:documentation>
+      <s5:operation soapAction="searchProfile"/>
+      <s0:input>
+        <s5:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s5:body parts="result" use="literal"/>
+      </s0:output>
+      <s0:fault name="ServiceException">
+        <s5:fault name="ServiceException" use="literal"/>
+      </s0:fault>
+      <s0:fault name="PolicyException">
+        <s5:fault name="PolicyException" use="literal"/>
+      </s0:fault>
+    </s0:operation>
+    <s0:operation name="getTransactionHistory">
+      <s0:documentation>Returns audited transaction data such as login success, login failures, change password, change secret Question and Answer events, etc.</s0:documentation>
+      <s5:operation soapAction="getTransactionHistory"/>
+      <s0:input>
+        <s5:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s5:body parts="result" use="literal"/>
+      </s0:output>
+      <s0:fault name="ServiceException">
+        <s5:fault name="ServiceException" use="literal"/>
+      </s0:fault>
+      <s0:fault name="PolicyException">
+        <s5:fault name="PolicyException" use="literal"/>
+      </s0:fault>
+    </s0:operation>
+    <s0:operation name="getIdentityToken">
+      <s0:documentation>Generate a token for the identity that could be used to recover the username.</s0:documentation>
+      <s5:operation soapAction="getIdentityToken"/>
+      <s0:input>
+        <s5:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s5:body parts="result" use="literal"/>
+      </s0:output>
+      <s0:fault name="ServiceException">
+        <s5:fault name="ServiceException" use="literal"/>
+      </s0:fault>
+      <s0:fault name="PolicyException">
+        <s5:fault name="PolicyException" use="literal"/>
+      </s0:fault>
+    </s0:operation>
+    <s0:operation name="ping">
+      <s0:documentation>
+</s0:documentation>
+      <s5:operation soapAction="ping"/>
+      <s0:input>
+        <s5:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s5:body parts="result" use="literal"/>
+      </s0:output>
+      <s0:fault name="ServiceException">
+        <s5:fault name="ServiceException" use="literal"/>
+      </s0:fault>
+      <s0:fault name="PolicyException">
+        <s5:fault name="PolicyException" use="literal"/>
+      </s0:fault>
+    </s0:operation>
+  </s0:binding>
+  <s0:service name="ClientIdentityProfileService_v2_0">
+    <s0:port binding="s4:ClientIdentityProfileServiceSOAP" name="ClientIdentityProfileServicePort">
+      <s5:address location="http://em-securitymgmt-west-pr.tsl.telus.com:80/ClientIdentityProfileService_ws/ClientIdentityProfileService_v2_0/ClientIdentityProfileService_v2_0"/>
+    </s0:port>
+  </s0:service>
+</s0:definitions>

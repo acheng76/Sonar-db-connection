@@ -1,7 +1,9 @@
-const express = require('express');
-const cors = require('cors');
-const userRoutes = require('./routes/userRoutes');
-const reportRoutes = require('./routes/reportRoutes');
+const express = require("express");
+const cors = require("cors");
+
+const userRoutes = require("./routes/userRoutes");
+const reportRoutes = require("./routes/reportRoutes");
+const soapRoutes = require("./routes/soapRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -11,8 +13,9 @@ app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
 
 // Routes
-app.use('/api', userRoutes);
-app.use('/report', reportRoutes);
+app.use("/user", userRoutes);
+app.use("/report", reportRoutes);
+app.use("/soap", soapRoutes);
 
 // Start the server
 app.listen(PORT, () => {
