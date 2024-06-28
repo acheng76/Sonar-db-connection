@@ -263,11 +263,21 @@ async function getPerfCoreMMPReportData(req, res) {
 
 async function getPerfCoreMMPReportDataTest(req, res) {
   try {
-    const coreMMPPath = "./data/coreMMPTestData.csv";
+    const coreMMPPath = "./data/coreMMPTestData_v1.csv";
     const mmpData = await readDataFromCSV(coreMMPPath);
 
+    const month = req.query.month;
+    const year = req.query.year;
+    const slaType = req.query.slaType;
 
-    res.json(mmpData);
+    const mmpDataFilter = mmpData.filter(
+      (row) =>
+        row["SLA_TYP"] === slaType &&
+        (new Date(row["SLA_MNTH"]).getUTCMonth() + 1).toString() === month &&
+        new Date(row["SLA_MNTH"]).getFullYear().toString() === year
+    );
+
+    res.json(mmpDataFilter);
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");
