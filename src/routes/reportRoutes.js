@@ -6,5 +6,6 @@ router.get("/perfReportData", reportController.getPerfReportData);
 router.get("/avaiReportData", reportController.getAvaiReportData);
 router.get("/incidentData", reportController.getincidentData);
 router.get("/perfCoreMMPReportData", reportController.getPerfCoreMMPReportData);
+router.get("/perfReportDetailMMPData", reportController.getPerfReportDetailMMPData);
 
 module.exports = router;
